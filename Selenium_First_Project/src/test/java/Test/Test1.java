@@ -6,9 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.sql.SQLOutput;
+
 public class Test1 {
     public static void main(String[]args){
 
+/*
 
         System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
@@ -75,7 +78,44 @@ public class Test1 {
         String mail = mailText.getText();
         System.out.println(mail);
 
-     
+ */
+
+
+
+
+        //Lesson 6 : Check Box 1
+
+        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://demoqa.com/checkbox"); // sayfayı açar
+        driver.manage().window().maximize(); // pencereyi büyütmek için kullanılır.
+
+        String homeCheckboxCssValue = "label[for = 'tree-node-home'] span.rct-checkbox svg ";
+        //chechbox  içindeki check olup olmama durumunu string olarak tuttuk.
+
+
+        WebElement homeCheckBox = driver.findElement(new By.ByCssSelector(homeCheckboxCssValue));
+        homeCheckBox .click();
+        //checkboxı tıkladı ve value değeri değişti
+
+        homeCheckBox =  driver.findElement(new By.ByCssSelector(homeCheckboxCssValue));
+        String homeCheckboxClassname = homeCheckBox .getAttribute("class");
+        // sayfayı tekrar açıp class değerine tekrar baktı
+
+
+        if (homeCheckboxClassname.equals("rct-icon rct-icon-check")){
+            System.out.println("checkbox is checked");
+        }
+        else{
+            System.out.println("Checkbox is unchecked");
+        }
+
+        //tıkladıktan sonraki değer ile tıklamadan önce ilk açılan halinin aynı olup olmadığını kontrol ettik. 
+
+
+
+
 
 
 
