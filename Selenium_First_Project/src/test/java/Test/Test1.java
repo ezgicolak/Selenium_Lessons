@@ -111,7 +111,10 @@ public class Test1 {
             System.out.println("Checkbox is unchecked");
         }
 
-        //tıkladıktan sonraki değer ile tıklamadan önce ilk açılan halinin aynı olup olmadığını kontrol ettik. 
+        //tıkladıktan sonraki değer ile tıklamadan önce ilk açılan halinin aynı olup olmadığını kontrol ettik.
+
+
+        
 
 
 
