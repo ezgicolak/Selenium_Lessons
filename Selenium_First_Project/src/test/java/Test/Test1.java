@@ -61,11 +61,25 @@ public class Test1 {
         WebElement submit = driver.findElement(new By.ByCssSelector("button.btn"));
         submit.click();
 
-        // Lesson 5 :x path kullanımı
+        // Lesson 5
 
-        WebElement nameText = driver.findElement(By.xpath("//div/p[@id ='name']"));
+        //x path kullanımı
+
+        WebElement nameText = driver.findElement(By.cssSelector("#name"));
         String name = nameText.getText();
         System.out.println(name);
+
+        //CSS selector kullanımı
+
+        WebElement mailText = driver.findElement(By.cssSelector("#email"));
+        String mail = mailText.getText();
+        System.out.println(mail);
+
+     
+
+
+
+
 
 
 
