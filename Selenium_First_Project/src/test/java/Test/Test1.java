@@ -42,7 +42,7 @@ public class Test1 {
         email.sendKeys("user.name@gmail.com");
 
 
-        //CSS selector ile arama yaptık. 
+        //CSS selector ile arama yaptık.
         WebElement currentaddress = driver.findElement(new By.ByCssSelector(".form-control[placeholder='Current Address']"));
         currentaddress.click();
         currentaddress.sendKeys("yorum");
@@ -60,6 +60,16 @@ public class Test1 {
 
         WebElement submit = driver.findElement(new By.ByCssSelector("button.btn"));
         submit.click();
+
+        // Lesson 5 :x path kullanımı
+
+        WebElement nameText = driver.findElement(By.xpath("//div/p[@id ='name']"));
+        String name = nameText.getText();
+        System.out.println(name);
+
+
+
+
 
 
 
