@@ -1,9 +1,6 @@
 package Test;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.sql.SQLOutput;
@@ -124,26 +121,36 @@ public class Test1 {
         driver.get("https://demoqa.com/automation-practice-form");
         driver.manage().window().maximize();
 
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,200)");
+
+
         WebElement sportCheckBox = driver.findElement(By.id("hobbies-checkbox-1"));
         boolean isEnalbed = sportCheckBox.isEnabled();
         System.out.println(isEnalbed);
 
+
+
+        WebElement sportCheckBoxLabel =driver.findElement(new By.ByCssSelector("label[for='hobbies-checkbox-1']"));
+
         // burada sportcheck boxı bulduk ve check edilip edilemediğine baktık.
+
 
         if (isEnalbed){
 
             try {
                 System.out.println("entered try block");
-                sportCheckBox.click();
+                sportCheckBoxLabel.click();
             }
-            catch (org.openqa.selenium.ElementClickInterceptedException){
-                sportCheckBox.click();
+            catch (ElementClickInterceptedException e){
+                sportCheckBoxLabel.click();
                 System.out.println("entered catch block");
-
             }
         }
         boolean isSelected = sportCheckBox.isSelected();
         System.out.println(isSelected);
+
+
 
 
 
