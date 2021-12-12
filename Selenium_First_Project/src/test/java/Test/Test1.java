@@ -259,8 +259,23 @@ public class Test1 {
 
         // Lesson 10 : Dinamik elementler
 
-        
+        //Starts with : dinamic yani ıd si her sayfa yenilendiği zaman değişen elementler için kullanılır.
+        // elementin nasıl başladığnı yazarak XPATH methodu ile arama yapılır.
 
+        // Last : dinamic yani ıd si her sayfa yenilendiği zaman değişen elementler için kullanılır.
+        // elementin nasıl bittiğini  yazarak XPATH methodu ile arama yapılır.
+
+        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://demoqa.com/buttons");
+        driver.manage().window().maximize();
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,200)");
+
+        WebElement dynamicClickButton = driver.findElement(By.xpath("//div/button[starts-with(text() , 'Click Me')]"));
+        dynamicClickButton.click();
 
 
 
