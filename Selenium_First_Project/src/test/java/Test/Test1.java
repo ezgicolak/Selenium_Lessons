@@ -3,6 +3,8 @@ package Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.swing.*;
 import java.sql.SQLOutput;
@@ -255,7 +257,7 @@ public class Test1 {
             action.click(rightClickButton).perform();
             System.out.println("button is clicked");
         }
-    */
+
 
         // Lesson 10 : Dinamik elementler
 
@@ -276,6 +278,66 @@ public class Test1 {
 
         WebElement dynamicClickButton = driver.findElement(By.xpath("//div/button[starts-with(text() , 'Click Me')]"));
         dynamicClickButton.click();
+
+
+        // Lesson 11 : Dinamic Elements 2
+
+        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://demoqa.com/dynamic-properties");
+        driver.manage().window().maximize();
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,200)");
+
+        // 1.Dinamic Element = random ıd si olan text
+
+        WebElement textElement = driver.findElement(By.xpath("//div/p"));
+        String text = textElement.getText();
+        System.out.println(text);
+
+        // 2.Dinamic Element = 5 saniye sonra tıklanabilir buton
+
+        WebElement fivesecondButton = driver.findElement(By.id("enableAfter"));
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.elementToBeClickable(fivesecondButton));
+          fivesecondButton.click();
+
+        // 3. Dinamic Element = Rengi Değişen Buton
+
+        WebElement colorChangeButton=  driver.findElement(By.id("colorChange"));
+        String className = colorChangeButton.getAttribute("class");
+        System.out.println("Before Change : " +className);
+
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.attributeToBe(colorChangeButton,"class","mt-4 text-danger btn btn-primary"));
+        className = colorChangeButton.getAttribute("class");
+        System.out.println("After Change : " + className);
+
+        // 4. Dinamic Element = 5 saniye sonra görünür olan buton
+
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("visibleAfter")));
+        driver.findElement(By.id("visibleAfter")).click();
+        
+         */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
