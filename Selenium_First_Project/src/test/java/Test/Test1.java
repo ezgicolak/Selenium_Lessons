@@ -2,7 +2,9 @@ package Test;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
+import javax.swing.*;
 import java.sql.SQLOutput;
 
 public class Test1 {
@@ -173,7 +175,7 @@ public class Test1 {
         9.is Enable fonksiyonu ile buna bakıyoruz.
 
 
-         */
+
 
         System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
@@ -218,6 +220,46 @@ public class Test1 {
 
         WebElement noRadioButton =driver.findElement(By.id("noRadio"));
         System.out.println(noRadioButton.isEnabled());
+
+
+        // Lesson 9 : Çift Tıklama ,  Sağ Tıklama
+
+        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://demoqa.com/buttons");
+        driver.manage().window().maximize();
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,200)");
+
+        WebElement doubleClickButton = driver.findElement(By.id("doubleClickBtn"));
+
+        Actions action = new Actions(driver);
+        action.doubleClick(doubleClickButton).perform();
+
+        WebElement massege = driver.findElement(By.id("doubleClickMessage"));
+        String massegeText = massege.getText();
+        System.out.println(massegeText);
+
+        WebElement rightClickButton = driver.findElement(By.id("rightClickBtn"));
+        action.click(rightClickButton).perform();
+
+        boolean isEnable = rightClickButton.isEnabled();
+
+        System.out.println("radio button is enabled");
+
+        //butonun yanındaki yazıya tıkladık tıkladık
+
+        if (isEnable){
+            action.click(rightClickButton).perform();
+            System.out.println("button is clicked");
+        }
+    */
+
+        // Lesson 10 : Dinamik elementler
+
+        
 
 
 
