@@ -78,7 +78,7 @@ public class Test1 {
         String mail = mailText.getText();
         System.out.println(mail);
 
- */
+
 
 
 
@@ -112,9 +112,46 @@ public class Test1 {
         }
 
         //tıkladıktan sonraki değer ile tıklamadan önce ilk açılan halinin aynı olup olmadığını kontrol ettik.
+/
+
+ */
+
+        //Lesson_7
+
+        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://demoqa.com/automation-practice-form");
+        driver.manage().window().maximize();
+
+        WebElement sportCheckBox = driver.findElement(By.id("hobbies-checkbox-1"));
+        boolean isEnalbed = sportCheckBox.isEnabled();
+        System.out.println(isEnalbed);
+
+        // burada sportcheck boxı bulduk ve check edilip edilemediğine baktık.
+
+        if (isEnalbed){
+
+            try {
+                System.out.println("entered try block");
+                sportCheckBox.click();
+            }
+            catch (org.openqa.selenium.ElementClickInterceptedException){
+                sportCheckBox.click();
+                System.out.println("entered catch block");
+
+            }
+        }
+        boolean isSelected = sportCheckBox.isSelected();
+        System.out.println(isSelected);
 
 
-        
+
+
+
+
+
+
 
 
 
