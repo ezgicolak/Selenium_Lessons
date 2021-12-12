@@ -24,6 +24,8 @@ public class Test1 {
 
         //Lesson 4
 
+        //4.Web Elementleri Nasıl Bulunur?
+
         //Kullanılan Kavramlar : CSS Selector ,
 
         //incele dedikten sonra kodları gördüğümüz ekranda ctrl+f dediğimiz zaman arama satırına
@@ -115,6 +117,9 @@ public class Test1 {
 
         //Lesson_7
 
+        /*
+
+
         System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
@@ -149,6 +154,70 @@ public class Test1 {
         }
         boolean isSelected = sportCheckBox.isSelected();
         System.out.println(isSelected);
+        */
+
+
+        //Lesson 8 :Radio Buttons
+
+        /*
+        Algoritma
+
+        1.bakacağımız yerin tıklanabilir olup olmadığını bakıyoruz.
+        2.bunu kontrol ediyor yes ve no şeklinde
+        3.buton tıklanabilir ise bunu bir if döngüsü ile yazdırıyoruz
+        4.aşağıda yazan işaretlendi textini yazdırıyor
+        5.if döngüsüyle botonun tıklı olup olmadığını kontrol ediyoruz --- boolean kullan
+        6.!!! tıklama işlemi label yani yazılı olan kısma mı yoksa butona mı olduğuna bak
+        7.label mi yoksa buton mu olduğunu buton selected kısmında görebilirsin
+        8.disable buton için kontrol yap (no butonu için)
+        9.is Enable fonksiyonu ile buna bakıyoruz.
+
+
+         */
+
+        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://demoqa.com/radio-button");
+        driver.manage().window().maximize();
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,200)");
+
+        // is enable ile butonun kullanılabilir olup olmadığını baktık
+
+        WebElement yesRadioButonLabel = driver.findElement(new By.ByCssSelector("label[for='yesRadio']"));
+        boolean isEnable = yesRadioButonLabel.isEnabled();
+
+        System.out.println("isEnabled: " + isEnable + "radio button is enabled");
+
+        //butonun yanındaki yazıya tıkladık tıkladık
+
+        if (isEnable){
+            yesRadioButonLabel.click();
+            System.out.println("button is clicked");
+        }
+
+        // burada butonu seçtik ve butonun seçilip seçilmediğine baktık. seçilmiş ise boolean olarak true döndürmesini sağladık
+        WebElement yesRadioButon = driver.findElement(new By.ByCssSelector("input.custom-control-input[id='yesRadio']"));
+
+        boolean isSelected = yesRadioButon.isSelected();
+
+
+        // eğer seçilmiş ise yazı döndürmesini sağladık
+        if (isSelected){
+            System.out.println("Yes radio button is selected");
+        }
+
+        // yeni bir butonu seçtik
+
+        WebElement output = driver.findElement(new By.ByCssSelector("p.mt-3"));
+        System.out.println(output.getText());
+
+        // seçtiğimiz yeni buton kullanılabilir mi kontrol ettik. olmadığı için boolean değeri falce döndü.
+
+        WebElement noRadioButton =driver.findElement(By.id("noRadio"));
+        System.out.println(noRadioButton.isEnabled());
 
 
 
@@ -179,7 +248,20 @@ public class Test1 {
 
 
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
