@@ -11,11 +11,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLOutput;
 
 public class Test1 {
-    public static void main(String[]args) throws IOException {
+    public static void main(String[]args) throws IOException, InterruptedException {
 
 /*
 
@@ -352,7 +353,7 @@ public class Test1 {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,200)");
 
-        // Hatasız link için 500 döndü
+        // Hatalı link için 500 döndü
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet("http://the-internet.herokuapp.com/status_codes/500");
@@ -367,78 +368,70 @@ public class Test1 {
         HttpResponse response = client.execute(request);
         int StatusCode = response.getStatusLine().getStatusCode();
         System.out.println(StatusCode);
-        */
 
-        
 
+        // Lesson 13. Kırık Görseller
 
+        // elementin attribute nu bularak arayacağız. xpath yöntemi ile arama yapıyoruz.
 
+        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
 
+        driver.get("https://demoqa.com/broken");
+        driver.manage().window().maximize();
 
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,200)");
 
+        WebElement brokenimage = driver.findElement(By.xpath("//div/img[2]"));
+        String brokenImageUrl = brokenimage.getAttribute("src");
+        System.out.println(brokenImageUrl);
 
 
+        // 200 dönmektedir. Bunun nedeni verilen imagein kırık olmamasıdır.Mantığı bu şekilde.
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet(brokenImageUrl);
+        HttpResponse response = client.execute(request);
+        int StatusCode = response.getStatusLine().getStatusCode();
+        System.out.println(StatusCode);
 
+         */
 
+        // 14. Dosya İndirme
 
+        // Dosyanın inip inmediğine bakmamız gerekiyor.
 
+        // hata aldığın yerlerde end point koy ve debug modda çalıştır
 
+        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
 
+        driver.get("https://demoqa.com/upload-download");
+        driver.manage().window().maximize();
 
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,200)");
 
+        WebElement downloadButtonn = driver.findElement(By.id("downloadButton"));
+        downloadButtonn.click();
 
+        String path = "C:\\Users\\ASUS\\Downloads";
+        String filename = "sampleFile.jpeg";
+        Thread.sleep(5000);
+        boolean isDownloaded =isFileDownloaded(path,filename);
+        System.out.println(isDownloaded);
+    }
+    public static boolean isFileDownloaded (String downloadPath, String fileName){
+        File file = new File(downloadPath);
+        File[] files = file.listFiles();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        for (int i = 0 ; i<files.length ; i++){
+            if(files[i].getName().equals(fileName)){
+                files[i].delete();
+                return true;
+            }
+        }
+        return  false;
     }
 
 }
