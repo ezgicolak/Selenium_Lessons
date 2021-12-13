@@ -1,5 +1,9 @@
 package Test;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -7,10 +11,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.sql.SQLOutput;
 
 public class Test1 {
-    public static void main(String[]args){
+    public static void main(String[]args) throws IOException {
 
 /*
 
@@ -320,8 +325,58 @@ public class Test1 {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("visibleAfter")));
         driver.findElement(By.id("visibleAfter")).click();
+
+
+
+        // Lesson 12 Kırık (Bozuk) Link Görsel
+
+        // Kırık link.görsel : client tarafı servere bağlanmak için request atmış ancak bir hata dönmüş ve sayfada görülmüyor.
+        //bu durum kullanıcısı kötüdür. Bunu selenium ve başka bir kütüphane ile kontrol edebiliriz.
+        //Otomasyona kırık görsel ve link var mı şeklinde bir kontrol yapmak faydalı olacaktır.
+
+        //  HTTP clienti koda entegre etmemiz gerekiyor.pom dosyasına meaven sitesindeki hTTPclienti yükledik.
+        // <dependency>
+        //            <groupId>org.apache.httpcomponents</groupId>
+        //            <artifactId>httpclient</artifactId>
+        //            <version>4.5.13</version>
+        //        </dependency> kodunu yapıştırdık
+        //
+        //
+
+        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://demoqa.com/broken");
+        driver.manage().window().maximize();
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,200)");
+
+        // Hatasız link için 500 döndü
+
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet("http://the-internet.herokuapp.com/status_codes/500");
+        HttpResponse response = client.execute(request);
+        int StatusCode = response.getStatusLine().getStatusCode();
+        System.out.println(StatusCode);
+
+        // Hatasız için 200 döndü
+
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet("https://demoqa.com/");
+        HttpResponse response = client.execute(request);
+        int StatusCode = response.getStatusLine().getStatusCode();
+        System.out.println(StatusCode);
+        */
+
         
-         */
+
+
+
+
+
+
+
 
 
 
