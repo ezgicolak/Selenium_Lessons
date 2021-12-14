@@ -14,6 +14,8 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Test1 {
     public static void main(String[]args) throws IOException, InterruptedException {
@@ -395,13 +397,46 @@ public class Test1 {
         int StatusCode = response.getStatusLine().getStatusCode();
         System.out.println(StatusCode);
 
-         */
+
 
         // 14. Dosya İndirme
 
         // Dosyanın inip inmediğine bakmamız gerekiyor.
 
         // hata aldığın yerlerde end point koy ve debug modda çalıştır
+
+//        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+//        WebDriver driver = new ChromeDriver();
+//
+//        driver.get("https://demoqa.com/upload-download");
+//        driver.manage().window().maximize();
+//
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("window.scrollBy(0,200)");
+//
+//        WebElement downloadButtonn = driver.findElement(By.id("downloadButton"));
+//        downloadButtonn.click();
+//
+//        String path = "C:\\Users\\ASUS\\Downloads";
+//        String filename = "sampleFile.jpeg";
+//        Thread.sleep(5000);
+//
+//
+//        boolean isDownloaded =isFileDownloaded(path,filename);
+//        System.out.println(isDownloaded);
+//    }
+//    public static boolean isFileDownloaded (String downloadPath, String fileName){
+//        File file = new File(downloadPath);
+//        File[] files = file.listFiles();
+//
+//        for (int i = 0 ; i<files.length ; i++){
+//            if(files[i].getName().equals(fileName)){
+//                files[i].delete();
+//                return true;
+//            }
+//        }
+//        return  false;
+        // 15 . Dosya Yükleme
 
         System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
@@ -412,26 +447,57 @@ public class Test1 {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,200)");
 
-        WebElement downloadButtonn = driver.findElement(By.id("downloadButton"));
-        downloadButtonn.click();
+        WebElement uploadButton = driver.findElement(By.id("uploadFile"));
+        System.out.println("butonu buldum");
+        // URL ı bulmuyor
+//        uploadButton.sendKeys("Users/ASUS/esktop/a");
+//        System.out.println("yükledim ");
 
-        String path = "C:\\Users\\ASUS\\Downloads";
-        String filename = "sampleFile.jpeg";
-        Thread.sleep(5000);
-        boolean isDownloaded =isFileDownloaded(path,filename);
-        System.out.println(isDownloaded);
-    }
-    public static boolean isFileDownloaded (String downloadPath, String fileName){
-        File file = new File(downloadPath);
-        File[] files = file.listFiles();
+        // 16. Diğer Win/Tab lar Arasındaki Etkileşim Nasıl Olur?
+        // diğer taba tıkla
+        // pencere içindeki tüm tabları sayan bir liste oluşur.
+        //Senin tabının numarasını gir ve o tabı yazdır
+        // quit tüm pencereleri kapatır, close ise sadece o tabı kapatır.
 
-        for (int i = 0 ; i<files.length ; i++){
-            if(files[i].getName().equals(fileName)){
-                files[i].delete();
-                return true;
-            }
-        }
-        return  false;
+       */
+        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://demoqa.com/browser-windows");
+        driver.manage().window().maximize();
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,200)");
+
+        WebElement tabButton = driver.findElement(By.id("tabButton"));
+        tabButton.click();
+
+        List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        System.out.println(tabs.size());
+
+        driver.switchTo().window(tabs.get(1));
+        System.out.println(driver.getCurrentUrl());
+
+        Thread.sleep(2000);
+        driver.close();
+
+        WebElement windowButton = driver.findElement(By.id("windowButton"));
+        windowButton.click();
+
+        List<String> tabs2 = new ArrayList<>(driver.getWindowHandles());
+        System.out.println(tabs2.size());
+
+        driver.switchTo().window(tabs2.get(1));
+        System.out.println(driver.getCurrentUrl());
+
+        Thread.sleep(2000);
+        driver.close();
+
+
+
+
+
     }
+
 
 }
